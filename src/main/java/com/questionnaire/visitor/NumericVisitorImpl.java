@@ -1,6 +1,21 @@
-package com.questionnaire;
+package com.questionnaire.visitor;
+
+import com.questionnaire.NumericBaseVisitor;
+import com.questionnaire.NumericParser;
+import com.questionnaire.Questionnaire;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 public class NumericVisitorImpl extends NumericBaseVisitor<Double> {
+
+    private VisitorContext visitorContext;
+
+    public NumericVisitorImpl(VisitorContext visitorContext) {
+        this.visitorContext = visitorContext;
+    }
+
+    public Double visit(ParseTree tree) {
+        return super.visit(tree);
+    }
 
     @Override
     public Double visitNumber(NumericParser.NumberContext ctx) {

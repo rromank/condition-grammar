@@ -1,11 +1,16 @@
-package com.questionnaire;
+package com.questionnaire.visitor;
 
+import com.questionnaire.ExpressionParser;
+import com.questionnaire.Questionnaire;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -51,6 +56,8 @@ public class AbstractVisitorTest {
                 {"(2 + 3) > 4", true},
                 {"(2 + 3) >= 5", true},
                 {"\"VERY LONG STRING\".contains(upper(\"long\")) && 15 + 3 > 17", true},
+                {"ASSOCIATION_NAME == \"ABC Association\"", true},
+                {"(ASSOCIATION_NAME == \"ABC Association\" || 5 < 3) || \"abc\".contains(\"z\")", false},
         });
     }
 
@@ -62,11 +69,15 @@ public class AbstractVisitorTest {
 
     @Test
     public void test() {
-        assertEquals(expected, ExpressionParser.parseBoolean(condition));
-    }
-//    @Test
-//    public void test() {
-//        assertEquals(expected, ExpressionParser.parseBoolean("true && true"));
-//    }
+        Questionnaire questionnaire = new Questionnaire();
+        questionnaire.setAssociationName("ABC Association");
+        questionnaire.setBorrowerName("John Smith");
 
+        List<String> disabledProperties = new ArrayList<>();
+        disabledProperties.add("ASSOCIATION_NAME");
+
+        ExpressionParser expressionParser = new ExpressionParser(questionnaire, disabledProperties);
+
+        Assert.assertEquals(expected, expressionParser.parseBoolean(condition));
+    }
 }

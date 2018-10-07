@@ -45,5 +45,4 @@ GE    : '>=';
 LPAR  : '(';
 RPAR  : ')';
 
-
 WS    : [ \t\r\n]+ -> skip;

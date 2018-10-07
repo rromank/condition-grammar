@@ -9,7 +9,7 @@ numeric
     |INT                            # number
     ;
 
-INT    : [0-9]+;
+INT   : [0-9]+;
 
 PLUS  : '+';
 MINUS : '-';
