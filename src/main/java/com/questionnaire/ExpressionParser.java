@@ -4,9 +4,9 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-public class MyConditionParser {
+public class ExpressionParser {
 
-    public static boolean parse(String expression) {
+    public static boolean parseBoolean(String expression) {
         ConditionLexer lexer = new ConditionLexer(CharStreams.fromString(expression));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ConditionParser parser = new ConditionParser(tokens);
@@ -23,6 +23,16 @@ public class MyConditionParser {
         ParseTree tree = parser.string();
 
         StringVisitorImpl visitor = new StringVisitorImpl();
+        return visitor.visit(tree);
+    }
+
+    public static Double parseNumeric(String value) {
+        NumericLexer lexer = new NumericLexer(CharStreams.fromString(value));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        NumericParser parser = new NumericParser(tokens);
+        ParseTree tree = parser.numeric();
+
+        NumericVisitorImpl visitor = new NumericVisitorImpl();
         return visitor.visit(tree);
     }
 

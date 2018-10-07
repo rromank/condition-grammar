@@ -1,25 +1,34 @@
 grammar Condition;
 
-import String;
+import Numeric, String;
 
 calc: expr;
 
 expr
     :LPAR expr RPAR                 # braces
-    |expr AND expr                  # andExpression
-    |expr OR expr                   # orExpression
-    |expr EQ expr                   # eqExpression
-    |expr NEQ expr                  # neqExpression
+    |numericComparison              # numericComparisonExpression
+    |expr AND expr                  # boolAnd
+    |expr OR expr                   # boolOr
+    |expr EQ expr                   # boolEq
+    |expr NEQ expr                  # boolNeq
     |containsFunction               # contains
     |stringComparison               # stringComparisonExpression
     |bool                           # boolExpression
     ;
 
 stringComparison
-    :string EQ string               # stringEqExpression
-    |string NEQ string              # stringNeqExpression
+    :string EQ string               # stringEq
+    |string NEQ string              # stringNeq
     ;
 
+numericComparison
+    :numeric EQ numeric             # numericEq
+    |numeric NEQ numeric            # numericNeq
+    |numeric LT numeric             # numericLt
+    |numeric GT numeric             # numericGt
+    |numeric LE numeric             # numericLe
+    |numeric GE numeric             # numericGe
+    ;
 
 containsFunction    : stringLiteral '.contains(' stringLiteral ')';
 
@@ -30,17 +39,13 @@ AND   : '&&';
 OR    : '||';
 EQ    : '==';
 NEQ   : '!=';
-
-GT    : '>';
 LT    : '<';
+GT    : '>';
+LE    : '<=';
+GE    : '>=';
 
-PLUS  : '+';
-MINUS : '-';
-MULT  : '*';
-DIV   : '/';
 LPAR  : '(';
 RPAR  : ')';
 
-NUMBER: '-'? [0-9]+;
 
 WS    : [ \t\r\n]+ -> skip;

@@ -38,7 +38,7 @@
 ////        }
 //    }
 //
-//    public static boolean parse(String text) {
+//    public static boolean parseBoolean(String text) {
 //        return new ConditionVisitor(text).result();
 //    }
 //}

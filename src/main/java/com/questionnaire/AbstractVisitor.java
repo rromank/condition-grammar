@@ -33,7 +33,7 @@ public class AbstractVisitor<L extends Lexer, P extends ConditionParser> {
         parser.addErrorListener(new BaseErrorListener() {
             @Override
             public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int pos, String msg, RecognitionException e) {
-                throw new IllegalStateException("Failed to parse at " + line + "," + pos + ":  " + msg, e);
+                throw new IllegalStateException("Failed to parseBoolean at " + line + "," + pos + ":  " + msg, e);
             }
         });
     }

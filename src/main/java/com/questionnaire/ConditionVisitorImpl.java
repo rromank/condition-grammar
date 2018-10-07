@@ -8,22 +8,22 @@ public class ConditionVisitorImpl extends ConditionBaseVisitor<Boolean> {
     }
 
     @Override
-    public Boolean visitAndExpression(ConditionParser.AndExpressionContext ctx) {
+    public Boolean visitBoolAnd(ConditionParser.BoolAndContext ctx) {
         return visit(ctx.expr(0)) && visit(ctx.expr(1));
     }
 
     @Override
-    public Boolean visitOrExpression(ConditionParser.OrExpressionContext ctx) {
+    public Boolean visitBoolOr(ConditionParser.BoolOrContext ctx) {
         return visit(ctx.expr(0)) || visit(ctx.expr(1));
     }
 
     @Override
-    public Boolean visitEqExpression(ConditionParser.EqExpressionContext ctx) {
+    public Boolean visitBoolEq(ConditionParser.BoolEqContext ctx) {
         return visit(ctx.expr(0)).equals(visit(ctx.expr(1)));
     }
 
     @Override
-    public Boolean visitNeqExpression(ConditionParser.NeqExpressionContext ctx) {
+    public Boolean visitBoolNeq(ConditionParser.BoolNeqContext ctx) {
         return !visit(ctx.expr(0)).equals(visit(ctx.expr(1)));
     }
 
@@ -33,16 +33,16 @@ public class ConditionVisitorImpl extends ConditionBaseVisitor<Boolean> {
     }
 
     @Override
-    public Boolean visitStringEqExpression(ConditionParser.StringEqExpressionContext ctx) {
-        String left = MyConditionParser.parseString(ctx.string(0).getText());
-        String right = MyConditionParser.parseString(ctx.string(1).getText());
+    public Boolean visitStringEq(ConditionParser.StringEqContext ctx) {
+        String left = ExpressionParser.parseString(ctx.string(0).getText());
+        String right = ExpressionParser.parseString(ctx.string(1).getText());
         return left.equals(right);
     }
 
     @Override
-    public Boolean visitStringNeqExpression(ConditionParser.StringNeqExpressionContext ctx) {
-        String left = MyConditionParser.parseString(ctx.string(0).getText());
-        String right = MyConditionParser.parseString(ctx.string(1).getText());
+    public Boolean visitStringNeq(ConditionParser.StringNeqContext ctx) {
+        String left = ExpressionParser.parseString(ctx.string(0).getText());
+        String right = ExpressionParser.parseString(ctx.string(1).getText());
         return !left.equals(right);
     }
 
@@ -53,8 +53,50 @@ public class ConditionVisitorImpl extends ConditionBaseVisitor<Boolean> {
 
     @Override
     public Boolean visitContainsFunction(ConditionParser.ContainsFunctionContext ctx) {
-        String literal = MyConditionParser.parseString(ctx.stringLiteral(0).getText());
-        String argument = MyConditionParser.parseString(ctx.stringLiteral(1).getText());
+        String literal = ExpressionParser.parseString(ctx.stringLiteral(0).getText());
+        String argument = ExpressionParser.parseString(ctx.stringLiteral(1).getText());
         return literal.contains(argument);
+    }
+
+    @Override
+    public Boolean visitNumericEq(ConditionParser.NumericEqContext ctx) {
+        Double left = ExpressionParser.parseNumeric(ctx.numeric(0).getText());
+        Double right = ExpressionParser.parseNumeric(ctx.numeric(1).getText());
+        return left.equals(right);
+    }
+
+    @Override
+    public Boolean visitNumericNeq(ConditionParser.NumericNeqContext ctx) {
+        Double left = ExpressionParser.parseNumeric(ctx.numeric(0).getText());
+        Double right = ExpressionParser.parseNumeric(ctx.numeric(1).getText());
+        return !left.equals(right);
+    }
+
+    @Override
+    public Boolean visitNumericLt(ConditionParser.NumericLtContext ctx) {
+        Double left = ExpressionParser.parseNumeric(ctx.numeric(0).getText());
+        Double right = ExpressionParser.parseNumeric(ctx.numeric(1).getText());
+        return left < right;
+    }
+
+    @Override
+    public Boolean visitNumericGt(ConditionParser.NumericGtContext ctx) {
+        Double left = ExpressionParser.parseNumeric(ctx.numeric(0).getText());
+        Double right = ExpressionParser.parseNumeric(ctx.numeric(1).getText());
+        return left > right;
+    }
+
+    @Override
+    public Boolean visitNumericLe(ConditionParser.NumericLeContext ctx) {
+        Double left = ExpressionParser.parseNumeric(ctx.numeric(0).getText());
+        Double right = ExpressionParser.parseNumeric(ctx.numeric(1).getText());
+        return left <= right;
+    }
+
+    @Override
+    public Boolean visitNumericGe(ConditionParser.NumericGeContext ctx) {
+        Double left = ExpressionParser.parseNumeric(ctx.numeric(0).getText());
+        Double right = ExpressionParser.parseNumeric(ctx.numeric(1).getText());
+        return left >= right;
     }
 }

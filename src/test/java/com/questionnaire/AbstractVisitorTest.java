@@ -48,6 +48,8 @@ public class AbstractVisitorTest {
                 {"false == true", false},
                 {"false != false", false},
                 {"false != true", true},
+                {"(2 + 3) > 4", true},
+                {"(2 + 3) >= 5", true},
         });
     }
 
@@ -59,11 +61,11 @@ public class AbstractVisitorTest {
 
     @Test
     public void test() {
-        assertEquals(expected, MyConditionParser.parse(condition));
+        assertEquals(expected, ExpressionParser.parseBoolean(condition));
     }
 //    @Test
 //    public void test() {
-//        assertEquals(expected, MyConditionParser.parse("true && true"));
+//        assertEquals(expected, ExpressionParser.parseBoolean("true && true"));
 //    }
 
 }
