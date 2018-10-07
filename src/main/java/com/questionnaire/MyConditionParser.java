@@ -16,4 +16,14 @@ public class MyConditionParser {
         return visitor.visit(tree);
     }
 
+    public static String parseString(String value) {
+        StringLexer lexer = new StringLexer(CharStreams.fromString(value));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        StringParser parser = new StringParser(tokens);
+        ParseTree tree = parser.string();
+
+        StringVisitorImpl visitor = new StringVisitorImpl();
+        return visitor.visit(tree);
+    }
+
 }

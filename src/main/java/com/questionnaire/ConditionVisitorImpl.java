@@ -22,16 +22,29 @@ public class ConditionVisitorImpl extends ConditionBaseVisitor<Boolean> {
         return visit(ctx.expr());
     }
 
+//    @Override
+//    public Boolean visitLowerEquity(ConditionParser.LowerEquityContext ctx) {
+//        String lowerCaseArgument = getStringFromLiteral(ctx.lowerFunction().stringLiteral()).toLowerCase();
+//        return  getStringFromLiteral(ctx.stringLiteral()).equals(lowerCaseArgument);
+//    }
+//
+//    @Override
+//    public Boolean visitUpperEquity(ConditionParser.UpperEquityContext ctx) {
+//        String upperCaseArgument = getStringFromLiteral(ctx.upperFunction().stringLiteral()).toUpperCase();
+//        return getStringFromLiteral(ctx.stringLiteral()).equals(upperCaseArgument);
+//    }
+
+
     @Override
-    public Boolean visitLowerEquity(ConditionParser.LowerEquityContext ctx) {
-        String lowerCaseArgument = getStringFromLiteral(ctx.lowerFunction().stringLiteral()).toLowerCase();
-        return  getStringFromLiteral(ctx.stringLiteral()).equals(lowerCaseArgument);
+    public Boolean visitEquityExpression(ConditionParser.EquityExpressionContext ctx) {
+        String left = MyConditionParser.parseString(ctx.string(0).getText());
+        String right = MyConditionParser.parseString(ctx.string(1).getText());
+        return left.equals(right);
     }
 
     @Override
-    public Boolean visitUpperEquity(ConditionParser.UpperEquityContext ctx) {
-        String upperCaseArgument = getStringFromLiteral(ctx.upperFunction().stringLiteral()).toUpperCase();
-        return getStringFromLiteral(ctx.stringLiteral()).equals(upperCaseArgument);
+    public Boolean visitLowerFunction(ConditionParser.LowerFunctionContext ctx) {
+        return super.visitLowerFunction(ctx);
     }
 
     @Override
