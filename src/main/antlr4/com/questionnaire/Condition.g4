@@ -28,7 +28,7 @@ numericComparison
     |numeric GE numeric             # numericGe
     ;
 
-containsFunction : stringLiteral '.contains(' string ')';
+containsFunction: stringLiteral '.contains(' string ')';
 
 bool: BOOL;
 
