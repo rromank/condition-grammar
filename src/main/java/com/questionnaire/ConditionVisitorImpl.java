@@ -18,28 +18,32 @@ public class ConditionVisitorImpl extends ConditionBaseVisitor<Boolean> {
     }
 
     @Override
+    public Boolean visitEqExpression(ConditionParser.EqExpressionContext ctx) {
+        return visit(ctx.expr(0)).equals(visit(ctx.expr(1)));
+    }
+
+    @Override
+    public Boolean visitNeqExpression(ConditionParser.NeqExpressionContext ctx) {
+        return !visit(ctx.expr(0)).equals(visit(ctx.expr(1)));
+    }
+
+    @Override
     public Boolean visitBraces(ConditionParser.BracesContext ctx) {
         return visit(ctx.expr());
     }
 
-//    @Override
-//    public Boolean visitLowerEquity(ConditionParser.LowerEquityContext ctx) {
-//        String lowerCaseArgument = getStringFromLiteral(ctx.lowerFunction().stringLiteral()).toLowerCase();
-//        return  getStringFromLiteral(ctx.stringLiteral()).equals(lowerCaseArgument);
-//    }
-//
-//    @Override
-//    public Boolean visitUpperEquity(ConditionParser.UpperEquityContext ctx) {
-//        String upperCaseArgument = getStringFromLiteral(ctx.upperFunction().stringLiteral()).toUpperCase();
-//        return getStringFromLiteral(ctx.stringLiteral()).equals(upperCaseArgument);
-//    }
-
-
     @Override
-    public Boolean visitEquityExpression(ConditionParser.EquityExpressionContext ctx) {
+    public Boolean visitStringEqExpression(ConditionParser.StringEqExpressionContext ctx) {
         String left = MyConditionParser.parseString(ctx.string(0).getText());
         String right = MyConditionParser.parseString(ctx.string(1).getText());
         return left.equals(right);
+    }
+
+    @Override
+    public Boolean visitStringNeqExpression(ConditionParser.StringNeqExpressionContext ctx) {
+        String left = MyConditionParser.parseString(ctx.string(0).getText());
+        String right = MyConditionParser.parseString(ctx.string(1).getText());
+        return !left.equals(right);
     }
 
     @Override
@@ -49,13 +53,8 @@ public class ConditionVisitorImpl extends ConditionBaseVisitor<Boolean> {
 
     @Override
     public Boolean visitContainsFunction(ConditionParser.ContainsFunctionContext ctx) {
-        String literal = getStringFromLiteral(ctx.stringLiteral(0));
-        String argument = getStringFromLiteral(ctx.stringLiteral(1));
+        String literal = MyConditionParser.parseString(ctx.stringLiteral(0).getText());
+        String argument = MyConditionParser.parseString(ctx.stringLiteral(1).getText());
         return literal.contains(argument);
-    }
-
-    private String getStringFromLiteral(ConditionParser.StringLiteralContext ctx) {
-        String stringLiteral = ctx.getText();
-        return stringLiteral.substring(1, stringLiteral.length() - 1);
     }
 }

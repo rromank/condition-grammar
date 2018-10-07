@@ -8,10 +8,18 @@ expr
     :LPAR expr RPAR                 # braces
     |expr AND expr                  # andExpression
     |expr OR expr                   # orExpression
-    |string EQ string               # equityExpression
+    |expr EQ expr                   # eqExpression
+    |expr NEQ expr                  # neqExpression
     |containsFunction               # contains
+    |stringComparison               # stringComparisonExpression
     |bool                           # boolExpression
     ;
+
+stringComparison
+    :string EQ string               # stringEqExpression
+    |string NEQ string              # stringNeqExpression
+    ;
+
 
 containsFunction    : stringLiteral '.contains(' stringLiteral ')';
 
@@ -21,6 +29,7 @@ BOOL  : 'true' | 'false';
 AND   : '&&';
 OR    : '||';
 EQ    : '==';
+NEQ   : '!=';
 
 GT    : '>';
 LT    : '<';

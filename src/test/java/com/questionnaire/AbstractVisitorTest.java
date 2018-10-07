@@ -36,7 +36,18 @@ public class AbstractVisitorTest {
                 {"upper(\"abcd\") == \"ABC\"", false},
                 {"\"ABC\" == upper(\"abcd\")", false},
                 {"\"hello\".contains(\"el\")", true},
-                {"\"hello\".contains(\"abc\")", false}
+                {"\"hello\".contains(\"abc\")", false},
+                {"\"abc\" == \"abc\"", true},
+                {"\"abc\" != \"abc\"", false},
+                {"\"abc\" != \"xyz\"", true},
+                {"true == true", true},
+                {"true == false", false},
+                {"true != true", false},
+                {"true != false", true},
+                {"false == false", true},
+                {"false == true", false},
+                {"false != false", false},
+                {"false != true", true},
         });
     }
 
