@@ -50,6 +50,7 @@ public class AbstractVisitorTest {
                 {"false != true", true},
                 {"(2 + 3) > 4", true},
                 {"(2 + 3) >= 5", true},
+                {"\"VERY LONG STRING\".contains(upper(\"long\")) && 15 + 3 > 17", true},
         });
     }
 

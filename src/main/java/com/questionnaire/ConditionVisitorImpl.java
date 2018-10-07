@@ -9,27 +9,27 @@ public class ConditionVisitorImpl extends ConditionBaseVisitor<Boolean> {
 
     @Override
     public Boolean visitBoolAnd(ConditionParser.BoolAndContext ctx) {
-        return visit(ctx.expr(0)) && visit(ctx.expr(1));
+        return visit(ctx.condition(0)) && visit(ctx.condition(1));
     }
 
     @Override
     public Boolean visitBoolOr(ConditionParser.BoolOrContext ctx) {
-        return visit(ctx.expr(0)) || visit(ctx.expr(1));
+        return visit(ctx.condition(0)) || visit(ctx.condition(1));
     }
 
     @Override
     public Boolean visitBoolEq(ConditionParser.BoolEqContext ctx) {
-        return visit(ctx.expr(0)).equals(visit(ctx.expr(1)));
+        return visit(ctx.condition(0)).equals(visit(ctx.condition(1)));
     }
 
     @Override
     public Boolean visitBoolNeq(ConditionParser.BoolNeqContext ctx) {
-        return !visit(ctx.expr(0)).equals(visit(ctx.expr(1)));
+        return !visit(ctx.condition(0)).equals(visit(ctx.condition(1)));
     }
 
     @Override
-    public Boolean visitBraces(ConditionParser.BracesContext ctx) {
-        return visit(ctx.expr());
+    public Boolean visitBoolBraces(ConditionParser.BoolBracesContext ctx) {
+        return visit(ctx.condition());
     }
 
     @Override
@@ -53,8 +53,8 @@ public class ConditionVisitorImpl extends ConditionBaseVisitor<Boolean> {
 
     @Override
     public Boolean visitContainsFunction(ConditionParser.ContainsFunctionContext ctx) {
-        String literal = ExpressionParser.parseString(ctx.stringLiteral(0).getText());
-        String argument = ExpressionParser.parseString(ctx.stringLiteral(1).getText());
+        String literal = ExpressionParser.parseString(ctx.stringLiteral().getText());
+        String argument = ExpressionParser.parseString(ctx.string().getText());
         return literal.contains(argument);
     }
 

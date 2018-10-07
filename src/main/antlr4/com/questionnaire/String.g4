@@ -6,8 +6,8 @@ string
     |stringLiteral
     ;
 
-lowerFunction       : 'lower(' stringLiteral ')';
-upperFunction       : 'upper(' stringLiteral ')';
+lowerFunction       : 'lower(' string ')';
+upperFunction       : 'upper(' string ')';
 
 stringLiteral: STRING_LITERAL ;
 

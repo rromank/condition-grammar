@@ -2,17 +2,15 @@ grammar Condition;
 
 import Numeric, String;
 
-calc: expr;
-
-expr
-    :LPAR expr RPAR                 # braces
+condition
+    :LPAR condition RPAR            # boolBraces
+    |condition AND condition        # boolAnd
+    |condition OR condition         # boolOr
+    |condition EQ condition         # boolEq
+    |condition NEQ condition        # boolNeq
     |numericComparison              # numericComparisonExpression
-    |expr AND expr                  # boolAnd
-    |expr OR expr                   # boolOr
-    |expr EQ expr                   # boolEq
-    |expr NEQ expr                  # boolNeq
-    |containsFunction               # contains
     |stringComparison               # stringComparisonExpression
+    |containsFunction               # contains
     |bool                           # boolExpression
     ;
 
@@ -30,7 +28,7 @@ numericComparison
     |numeric GE numeric             # numericGe
     ;
 
-containsFunction    : stringLiteral '.contains(' stringLiteral ')';
+containsFunction : stringLiteral '.contains(' string ')';
 
 bool: BOOL;
 

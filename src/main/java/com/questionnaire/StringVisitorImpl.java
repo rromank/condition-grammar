@@ -4,12 +4,12 @@ public class StringVisitorImpl extends StringBaseVisitor<String> {
 
     @Override
     public String visitLowerFunction(StringParser.LowerFunctionContext ctx) {
-        return getStringFromLiteral(ctx.stringLiteral()).toLowerCase();
+        return getStringFromLiteral(ctx.string().stringLiteral()).toLowerCase();
     }
 
     @Override
     public String visitUpperFunction(StringParser.UpperFunctionContext ctx) {
-        return getStringFromLiteral(ctx.stringLiteral()).toUpperCase();
+        return getStringFromLiteral(ctx.string().stringLiteral()).toUpperCase();
     }
 
     @Override

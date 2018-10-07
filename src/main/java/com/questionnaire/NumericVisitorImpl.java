@@ -4,7 +4,7 @@ public class NumericVisitorImpl extends NumericBaseVisitor<Double> {
 
     @Override
     public Double visitNumber(NumericParser.NumberContext ctx) {
-        return Double.parseDouble(ctx.numberLiteral().getText());
+        return Double.parseDouble(ctx.INT().getText());
     }
 
     @Override
@@ -13,22 +13,22 @@ public class NumericVisitorImpl extends NumericBaseVisitor<Double> {
     }
 
     @Override
-    public Double visitDiv(NumericParser.DivContext ctx) {
+    public Double visitNumericDiv(NumericParser.NumericDivContext ctx) {
         return visit(ctx.numeric(0)) / visit(ctx.numeric(1));
     }
 
     @Override
-    public Double visitMinus(NumericParser.MinusContext ctx) {
+    public Double visitNumericMinus(NumericParser.NumericMinusContext ctx) {
         return visit(ctx.numeric(0)) - visit(ctx.numeric(1));
     }
 
     @Override
-    public Double visitMult(NumericParser.MultContext ctx) {
+    public Double visitNumericMult(NumericParser.NumericMultContext ctx) {
         return visit(ctx.numeric(0)) * visit(ctx.numeric(1));
     }
 
     @Override
-    public Double visitPlus(NumericParser.PlusContext ctx) {
+    public Double visitNumericPlus(NumericParser.NumericPlusContext ctx) {
         return visit(ctx.numeric(0)) + visit(ctx.numeric(1));
     }
 }

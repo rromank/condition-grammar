@@ -10,7 +10,7 @@ public class ExpressionParser {
         ConditionLexer lexer = new ConditionLexer(CharStreams.fromString(expression));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ConditionParser parser = new ConditionParser(tokens);
-        ParseTree tree = parser.calc();
+        ParseTree tree = parser.condition();
 
         ConditionVisitorImpl visitor = new ConditionVisitorImpl();
         return visitor.visit(tree);
